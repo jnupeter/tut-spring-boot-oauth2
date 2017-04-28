@@ -55,6 +55,7 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 	public AuthoritiesExtractor authoritiesExtractor(OAuth2RestOperations template) {
 		return map -> {
 			String url = (String) map.get("organizations_url");
+			System.out.println("=================" + url);
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> orgs = template.getForObject(url, List.class);
 			if (orgs.stream().anyMatch(org -> "spring-projects".equals(org.get("login")))) {

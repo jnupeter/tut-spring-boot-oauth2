@@ -1,0 +1,57 @@
+{
+  "authorities": [
+    {
+      "authority": "ROLE_USER"
+    }
+  ],
+  "details": {
+    "remoteAddress": "127.0.0.1",
+    "sessionId": "D842B1ACB011B8B1709332DE1C606BE7",
+    "tokenValue": "EAADUhTiuHMUBALksxSZB8RwIVdXo3CGMZAUmPKR4qsw5EjlxHR4RvC031fm5ZBQto1rKnbXxU2u6uM47tkJD5KdPurWXbfvtR8ASBCYBZBrZC4mzHu4HMuuTtI4R6hQ5zBifWPTqOzXmAZCJpZCOD5KlzEezjaBuOAZD",
+    "tokenType": "bearer",
+    "decodedDetails": null
+  },
+  "authenticated": true,
+  "userAuthentication": {
+    "authorities": [
+      {
+        "authority": "ROLE_USER"
+      }
+    ],
+    "details": {
+      "id": "1592781737398931",
+      "first_name": "Peter",
+      "gender": "male",
+      "last_name": "Cai",
+      "link": "https://www.facebook.com/app_scoped_user_id/1592781737398931/",
+      "locale": "en_US",
+      "middle_name": "Wei",
+      "name": "Peter Wei Cai",
+      "timezone": 10,
+      "updated_time": "2012-07-15T20:49:42+0000",
+      "verified": false
+    },
+    "authenticated": true,
+    "principal": "1592781737398931",
+    "credentials": "N/A",
+    "name": "1592781737398931"
+  },
+  "clientOnly": false,
+  "principal": "1592781737398931",
+  "oauth2Request": {
+    "clientId": "233668646673605",
+    "scope": [],
+    "requestParameters": {},
+    "resourceIds": [],
+    "authorities": [],
+    "approved": true,
+    "refresh": false,
+    "redirectUri": null,
+    "responseTypes": [],
+    "extensions": {},
+    "grantType": null,
+    "refreshTokenRequest": null
+  },
+  "credentials": "",
+  "name": "1592781737398931"
+}

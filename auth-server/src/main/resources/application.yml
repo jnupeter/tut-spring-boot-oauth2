@@ -5,6 +5,10 @@ security:
       client-secret: acmesecret
       scope: read,write
       auto-approve-scopes: '.*'
+  user:
+      name: peter
+      password: verysecret
+      role: POWERFUL
 
 facebook:
   client:
@@ -30,3 +34,4 @@ github:
 logging:
   level:
     org.springframework.security: DEBUG
+    org.springframework.security.oauth2.provider.endpoint: DEBUG

@@ -1,14 +1,21 @@
-security:
-  oauth2:
-    client:
-      client-id: acme
-      client-secret: acmesecret
-      scope: read,write
-      auto-approve-scopes: '.*'
-  user:
-      name: peter
-      password: verysecret
-      role: POWERFUL
+#security:
+#  oauth2:
+#    client:
+#      client-id: acme
+#      client-secret: acmesecret
+#      scope: read,write
+#      auto-approve-scopes: '.*'
+#  user:
+#      name: peter
+#      password: verysecret
+#      role: POWERFUL
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/accounts?useOldAliasMetadataBehavior=true&amp;zeroDateTimeBehavior=convertToNull
+    username: root
+    password: changeme
 
 facebook:
   client:

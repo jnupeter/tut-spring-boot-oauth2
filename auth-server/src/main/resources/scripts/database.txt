@@ -1,0 +1,52 @@
+docker run -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=changeme" -d mariadb
+mysql -h 127.0.0.1 -P 3306 -u root -pchangeme
+
+create database accounts;
+use accounts;
+
+-- it is for jdbcClientDetailServices
+create table oauth_client_details (
+  client_id VARCHAR(256) PRIMARY KEY,
+  resource_ids VARCHAR(256),
+  client_secret VARCHAR(256),
+  scope VARCHAR(256),
+  authorized_grant_types VARCHAR(256),
+  web_server_redirect_uri VARCHAR(256),
+  authorities VARCHAR(256),
+  access_token_validity INTEGER,
+  refresh_token_validity INTEGER,
+  additional_information VARCHAR(4096),
+  autoapprove VARCHAR(256)
+);
+
+-- sample data for clientDetail services
+insert into oauth_client_details(client_id, client_secret, resource_ids, scope, authorized_grant_types, authorities, autoapprove)
+value('myclient', 'myclientsecret', 'journey', 'read,write', 'password', 'ROLE_CLIENT_TRUSTED', '.*');
+
+create table account_details (
+  account_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  brand VARCHAR(50),
+  anonymous BOOLEAN default false,
+  email VARCHAR(256) NOT NULL,
+  password VARCHAR(4096),
+  first_name VARCHAR(256),
+  last_name VARCHAR(256),
+  idp VARCHAR(50) default 'CTM',  -- short name of id provider
+  idp_principal VARCHAR(256),     -- the unique id with the provider
+  access_token VARCHAR(4096),
+  refresh_token VARCHAR(4096)
+);
+
+insert into account_details(brand, email, password, first_name, last_name, idp, idp_principal)
+values('ctm', 'jnupeter@gmail.com', '','Peter', 'Cai', 'CTM', 'jnupeter@gmail.com');
+
+-- if oauth2 is true, need to configure the provider in application.yml
+create table id_providers (
+  id_provider_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  short_name VARCHAR(50) NOT NULL,
+  oauth2 BOOLEAN default false
+);
+
+insert into id_providers(short_name, oauth2)  values('CTM', false);
+insert into id_providers(short_name, oauth2)  values('FACEBOOK', true);
+insert into id_providers(short_name, oauth2)  values('GITHUB', true);

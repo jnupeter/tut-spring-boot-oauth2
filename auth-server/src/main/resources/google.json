@@ -1,0 +1,56 @@
+{
+  "authorities": [
+    {
+      "authority": "ROLE_USER"
+    }
+  ],
+  "details": {
+    "remoteAddress": "127.0.0.1",
+    "sessionId": "E886DE12D0588E7DFE4AB3A46042C873",
+    "tokenValue": "ya29.Gls_BEO6j3wrthj6S3iyytjAeWQ3mr6CmlvvknW6nrmCQoPZ3HH7-0Rug_UQ4g01OFt3ldM5z0jf5tdPKlmnpqjG_x_-CGxQeJVB_0-x_hWA9O_kgrDE5ZIskz3z",
+    "tokenType": "Bearer",
+    "decodedDetails": null
+  },
+  "authenticated": true,
+  "userAuthentication": {
+    "authorities": [
+      {
+        "authority": "ROLE_USER"
+      }
+    ],
+    "details": {
+      "sub": "102621983022277020837",
+      "name": "Cai Wei",
+      "given_name": "Cai",
+      "family_name": "Wei",
+      "profile": "https://plus.google.com/102621983022277020837",
+      "picture": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+      "email": "jnupeter@gmail.com",
+      "email_verified": true,
+      "gender": "male",
+      "locale": "en-GB"
+    },
+    "authenticated": true,
+    "principal": "Cai Wei",
+    "credentials": "N/A",
+    "name": "Cai Wei"
+  },
+  "clientOnly": false,
+  "principal": "Cai Wei",
+  "oauth2Request": {
+    "clientId": "1018193966378-rmqrhc34vei36gtdgc7f74s37v0v64ma.apps.googleusercontent.com",
+    "scope": [],
+    "requestParameters": {},
+    "resourceIds": [],
+    "authorities": [],
+    "approved": true,
+    "refresh": false,
+    "redirectUri": null,
+    "responseTypes": [],
+    "extensions": {},
+    "grantType": null,
+    "refreshTokenRequest": null
+  },
+  "credentials": "",
+  "name": "Cai Wei"
+}

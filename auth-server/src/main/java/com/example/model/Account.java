@@ -4,11 +4,15 @@ package com.example.model;
  * Created by pweicai on 2/05/17.
  */
 public class Account {
-
-    private String accountId;
+    private Integer accountId;
+    private boolean anonymous;
     private String email;
+    private String firstName;
+    private String lastName;
+    private String idp;
+    private String idpPrincipal;
 
-    public String getAccountId() {
+    public Integer getAccountId() {
         return this.accountId;
     }
 
@@ -16,7 +20,7 @@ public class Account {
         return this.email;
     }
 
-    public void setAccountId(final String accountId) {
+    public void setAccountId(final Integer accountId) {
         this.accountId = accountId;
     }
 

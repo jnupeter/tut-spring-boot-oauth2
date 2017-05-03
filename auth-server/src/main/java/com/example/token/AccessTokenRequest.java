@@ -5,4 +5,5 @@ package com.example.token;
  */
 public interface AccessTokenRequest {
     String getType();
+    String getBrand();
 }

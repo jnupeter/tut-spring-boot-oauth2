@@ -9,7 +9,6 @@
 #      name: peter
 #      password: verysecret
 #      role: POWERFUL
-
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -19,24 +18,38 @@ spring:
 
 facebook:
   client:
-    clientId: 233668646673605
-    clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
+    clientId: 1839072669749820
+    clientSecret: 7730785af9678b52bce125df90a6d1d9
     accessTokenUri: https://graph.facebook.com/oauth/access_token
     userAuthorizationUri: https://www.facebook.com/dialog/oauth
     tokenName: oauth_token
     authenticationScheme: query
     clientAuthenticationScheme: form
   resource:
-    userInfoUri: https://graph.facebook.com/me
+    userInfoUri: https://graph.facebook.com/me?fields=id,first_name,last_name,email
+
 github:
   client:
-    clientId: bd1c0a783ccdd1c9b9e4
-    clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
+    clientId: 5c50edcb62654b025614
+    clientSecret: fd79d0eebd330d8feec7e8972848bf95872c24f5
     accessTokenUri: https://github.com/login/oauth/access_token
     userAuthorizationUri: https://github.com/login/oauth/authorize
     clientAuthenticationScheme: form
+    scope: user:email
   resource:
     userInfoUri: https://api.github.com/user
+#email url https://api.github.com/user/emails
+
+google:
+  client:
+    clientId: 1018193966378-rmqrhc34vei36gtdgc7f74s37v0v64ma.apps.googleusercontent.com
+    clientSecret: Sh-eO6q7jDzr3snolK66Eg4Z
+    accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+    tokenName: authorization_code
+    scope: https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/userinfo.profile
+  resource:
+    userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo?fields=sub,given_name,family_name,email,gender
 
 logging:
   level:

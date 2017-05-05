@@ -5,16 +5,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.ldap.LdapAuthenticationProviderConfigurer;
+import org.springframework.security.ldap.authentication.LdapAuthenticationProvider;
+import org.springframework.security.ldap.authentication.LdapAuthenticator;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.sql.DataSource;
 
@@ -23,6 +31,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableAuthorizationServer
+@RestController
 public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
     private static final String SIGNING_KEY = "asdfasdfsfd";
 
@@ -32,19 +41,16 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Bean
-    public AuthenticationManager authenticationManager() {
-        return new EverestAuthenticationManager();
-    }
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore())
-                .accessTokenConverter(accessTokenConverter())
+                .accessTokenConverter(accessTokenConverter());
                 //.requestFactory(oAuth2RequestFactory())
                 //.tokenGranter(tokenGranter());
-                .authenticationManager(authenticationManager());
+                //.authenticationManager();
+
     }
+
 
     @Override
     public void configure(ClientDetailsServiceConfigurer client) throws Exception {
@@ -60,6 +66,7 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
     public OAuth2RequestFactory oAuth2RequestFactory() throws Exception {
         return new CtmOAuth2RequestFactory(clientDetailsService());
     }*/
+
 
     @Bean
     public TokenStore tokenStore() {

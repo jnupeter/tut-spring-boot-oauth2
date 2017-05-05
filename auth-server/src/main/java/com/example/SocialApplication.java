@@ -36,6 +36,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -73,6 +75,21 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 	public Principal userDetails(Principal principal) {
 		return principal;
 	}
+
+	@Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.ldapAuthentication()
+                .userSearchBase("OU=AIH Users,DC=budgetdirect,DC=com,DC=au")
+                .userSearchFilter("(sAMAccountName={0})")
+                .groupRoleAttribute("cn")
+                .groupSearchBase("OU=AIH Security Groups,OU=Security Groups,DC=budgetdirect,DC=com,DC=au")
+                .groupSearchFilter("(member={0})")
+                .rolePrefix("")
+                .contextSource()
+                .managerDn("CTM LDAP")
+                .managerPassword("Bind_Ldap$")
+                .url("ldap://argon.budgetdirect.com.au:389");
+    }
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -135,7 +152,7 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 		List<Filter> filters = new ArrayList<>();
 		filters.add(ssoFilter(facebook(), "/login/facebook"));
 		filters.add(ssoFilter(github(), "/login/github"));
-		filters.add(ssoFilter(google(), "/login/google"));
+		filters.add(rolesFilter(google(), "/login/google"));
 		filter.setFilters(filters);
 		return filter;
 	}
@@ -152,6 +169,17 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 		return filter;
 	}
 
+	private Filter rolesFilter(ClientResources client, String path) {
+        RolesFilter filter = new RolesFilter(
+                path);
+        OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
+        filter.setRestTemplate(template);
+        UserInfoTokenServices tokenServices = new UserInfoTokenServices(
+                client.getResource().getUserInfoUri(), client.getClient().getClientId());
+        tokenServices.setRestTemplate(template);
+        filter.setTokenServices(tokenServices);
+        return filter;
+    }
 }
 
 class ClientResources {

@@ -49,9 +49,9 @@ google:
     tokenName: authorization_code
     scope: https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/userinfo.profile
   resource:
-    userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo?fields=sub,given_name,family_name,email,gender
+    userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo?fields=sub,given_name,family_name,email,gender,name
 
 logging:
   level:
-    org.springframework.security: DEBUG
-    org.springframework.security.oauth2.provider.endpoint: DEBUG
+    org.springframework.security: INFO
+    org.springframework.security.oauth2.provider.endpoint: INFO

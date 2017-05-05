@@ -17,10 +17,10 @@
 	<h1>Login</h1>
 	<div class="container" ng-show="!home.authenticated">
 		<div>
-			With Facebook: <a href="/login/facebook">click here</a>
+			With Facebook: <a href="/login/facebook">Facebook</a>
 		</div>
 		<div>
-			With Github: <a href="/login/github">click here</a>
+			With Github: <a href="/login/github">Github</a>
 		</div>
 		<div>
 			With Google: <a href="/login/google">Google</a>
@@ -28,6 +28,7 @@
 	</div>
 	<div class="container" ng-show="home.authenticated">
 		Logged in as: <span ng-bind="home.user"></span>
+		<div>email: </div>
 		<div>
 			<button ng-click="home.logout()" class="btn btn-primary">Logout</button>
 		</div>

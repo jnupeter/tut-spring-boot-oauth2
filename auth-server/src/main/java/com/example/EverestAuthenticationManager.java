@@ -8,12 +8,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 /**
  * Created by pweicai on 28/04/17.
  */
+@Component
 public class EverestAuthenticationManager implements AuthenticationManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(EverestAuthenticationManager.class);

@@ -7,7 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.token.TokenService;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -56,6 +58,8 @@ public class RolesFilter extends OAuth2ClientAuthenticationProcessingFilter{
         tokenServices.setTokenStore(jwtTokenStore);
         tokenServices.setSupportRefreshToken(true);
 
+        InMemoryClientDetailsServiceBuilder builder = new InMemoryClientDetailsServiceBuilder();
+        builder.withClient("mysys").authorities("MY_SYS")
 
         CTMTokenGranter tokenGranter = new CTMTokenGranter(tokenServices, oauth2Authentication);
         OAuth2AccessToken token = tokenGranter.grant("mytype", null);

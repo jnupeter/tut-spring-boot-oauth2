@@ -1,77 +1,50 @@
 package com.example;
 
+import com.example.ctm.CtmTokenRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.OAuth2Request;
-import org.springframework.security.oauth2.provider.TokenGranter;
-import org.springframework.security.oauth2.provider.TokenRequest;
+import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Created by peter on 7/05/17.
  */
-public class CTMTokenGranter implements TokenGranter {
+public class CTMTokenGranter{
 
+    private static final Logger LOGGER = Logger.getLogger(CTMTokenGranter.class.getName());
     private AuthorizationServerTokenServices tokenServices;
-    private OAuth2Authentication oAuth2Authentication;
+    private ClientDetailsService clientDetailsService;
 
-    public CTMTokenGranter(AuthorizationServerTokenServices tokenServices, OAuth2Authentication authentication) {
+    public CTMTokenGranter(AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService) {
         this.tokenServices = tokenServices;
-        this.oAuth2Authentication = authentication;
+        this.clientDetailsService = clientDetailsService;
     }
 
-    @Override
-    public OAuth2AccessToken grant(String grantType, TokenRequest tokenRequest) {
-        return tokenServices.createAccessToken(getOAutheAuthentication());
+    public OAuth2AccessToken grant(String grantType, CtmTokenRequest ctmTokenRequest) {
+        return tokenServices.createAccessToken(getOAuth2Authentication(ctmTokenRequest));
     }
 
-    private OAuth2Authentication getOAutheAuthentication() {
-        final OAuth2Authentication result;
+    private OAuth2Authentication getOAuth2Authentication(CtmTokenRequest ctmTokenRequest) {
 
-        Map<String, String> requestParameters = new HashMap<>();
-        String clientId = "mysys";
-        ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("myrole"));
+        LOGGER.info("=========clientdetailservice===" + clientDetailsService);
+        LOGGER.info("========client id===" + ctmTokenRequest.getClientId());
+        ClientDetails clientDetails = clientDetailsService.loadClientByClientId(ctmTokenRequest.getClientId());
 
-        boolean approved = true;
+        LOGGER.info("============clientDetails=====" + clientDetails);
+        OAuth2Request request = ctmTokenRequest.createOAuth2Request(clientDetails);
 
-        Set<String> scope = new HashSet<>();
-        scope.add("journey");
+        String username = ctmTokenRequest.getRequestParameters().get("username");
+        Set<? extends GrantedAuthority> roles = ctmTokenRequest.getAuthorities();
 
-        Set<String> resourceIds = new HashSet<>();
-        scope.add("journey");
-
-        String redirectUri = "http://localhost:9090/";
-        Set<String> responseTypes = new HashSet<>();
-        responseTypes.add("mytype");
-
-        Map<String, Serializable > extensionProperties = new HashMap<>();
-        OAuth2Request request = new OAuth2Request(requestParameters,
-                                                  clientId,
-                                                  authorities,
-                                                  approved,
-                                                  scope,
-                resourceIds,
-                redirectUri,
-                responseTypes,
-                extensionProperties);
-
-        //============================
-        ArrayList<SimpleGrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("POWERFUL_USER"));
-        roles.add(new SimpleGrantedAuthority("ANOTHER_USER"));
-        Authentication userAuthentication = new UsernamePasswordAuthenticationToken("jnupeter@gmail.com", null, roles);
-
-        result = new OAuth2Authentication(request, userAuthentication);
-        result.setAuthenticated(true);
-
-        return result;
+        Authentication userAuthentication = new UsernamePasswordAuthenticationToken(username, null, roles);
+        return new OAuth2Authentication(request, userAuthentication);
     }
 }

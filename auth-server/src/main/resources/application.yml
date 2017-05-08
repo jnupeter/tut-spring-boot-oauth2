@@ -55,3 +55,11 @@ logging:
   level:
     org.springframework.security: INFO
     org.springframework.security.oauth2.provider.endpoint: INFO
+
+ctm:
+  ldap:
+    contextSource:
+      urls: ldap://argon.budgetdirect.com.au:389
+      base: DC=budgetdirect,DC=com,DC=au
+      userDn: CTM LDAP
+      password: Bind_Ldap$

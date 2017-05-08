@@ -1,0 +1,53 @@
+{
+  "authorities": [
+    {
+      "authority": "ROLE_USER"
+    }
+  ],
+  "details": {
+    "ctmAccessToken": {
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiam91cm5leSJdLCJ1c2VyX25hbWUiOiJwZXRlci5jYWlAY29tcGFyZXRoZW1hcmtldC5jb20uYXUiLCJzY29wZSI6WyJqb3VybmV5Il0sImV4cCI6MTQ5NDIwODk4OSwiYXV0aG9yaXRpZXMiOlsicm9sZV9zdGFmZiJdLCJqdGkiOiJkNTBkZjNmYy1iNzMzLTRkYmMtYTY5NS00ZjhmNmQ5YTU2MWQiLCJjbGllbnRfaWQiOiJteXN5cyJ9.iQf1mNLz70GuTKglb34qP81j2HNSxWQNpTRabok-jpE",
+      "token_type": "bearer",
+      "expires_in": 3580,
+      "scope": "journey",
+      "jti": "d50df3fc-b733-4dbc-a695-4f8f6d9a561d"
+    }
+  },
+  "authenticated": true,
+  "userAuthentication": {
+    "authorities": [
+      {
+        "authority": "ROLE_USER"
+      }
+    ],
+    "details": {
+      "sub": "116172352001158086365",
+      "name": "Peter Cai",
+      "given_name": "Peter",
+      "family_name": "Cai",
+      "email": "peter.cai@comparethemarket.com.au"
+    },
+    "authenticated": true,
+    "principal": "Peter Cai",
+    "credentials": "N/A",
+    "name": "Peter Cai"
+  },
+  "clientOnly": false,
+  "principal": "Peter Cai",
+  "oauth2Request": {
+    "clientId": "1018193966378-rmqrhc34vei36gtdgc7f74s37v0v64ma.apps.googleusercontent.com",
+    "scope": [],
+    "requestParameters": {},
+    "resourceIds": [],
+    "authorities": [],
+    "approved": true,
+    "refresh": false,
+    "redirectUri": null,
+    "responseTypes": [],
+    "extensions": {},
+    "grantType": null,
+    "refreshTokenRequest": null
+  },
+  "credentials": "",
+  "name": "Peter Cai"
+}

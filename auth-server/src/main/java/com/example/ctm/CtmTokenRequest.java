@@ -1,9 +1,13 @@
 package com.example.ctm;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.TokenRequest;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pweicai on 28/04/17.
@@ -11,6 +15,7 @@ import java.util.Map;
 public class CtmTokenRequest extends TokenRequest {
 
     private String idProvider;
+    Set<? extends GrantedAuthority> authorities = new HashSet<>();
 
     protected CtmTokenRequest() {
         super();
@@ -29,5 +34,13 @@ public class CtmTokenRequest extends TokenRequest {
 
     public String getIdProvider() {
         return this.idProvider;
+    }
+
+    public Set<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+
+    public void setAuthorities(Set<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 }

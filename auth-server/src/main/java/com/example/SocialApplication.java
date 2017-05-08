@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.Filter;
 
+import com.example.authority.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -68,6 +69,8 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	OAuth2ClientContext oauth2ClientContext;
+	@Autowired
+	AuthorityService authorityService;
 
 	@RequestMapping({ "/user", "/me" })
 	public Map<String, String> user(Principal principal) {
@@ -181,8 +184,7 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 	}
 
 	private Filter rolesFilter(ClientResources client, String path) {
-        RolesFilter filter = new RolesFilter(
-                path);
+        RolesFilter filter = new RolesFilter(path, authorityService);
         OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
         filter.setRestTemplate(template);
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(

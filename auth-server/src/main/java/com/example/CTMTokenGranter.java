@@ -33,12 +33,7 @@ public class CTMTokenGranter{
     }
 
     private OAuth2Authentication getOAuth2Authentication(CtmTokenRequest ctmTokenRequest) {
-
-        LOGGER.info("=========clientdetailservice===" + clientDetailsService);
-        LOGGER.info("========client id===" + ctmTokenRequest.getClientId());
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(ctmTokenRequest.getClientId());
-
-        LOGGER.info("============clientDetails=====" + clientDetails);
         OAuth2Request request = ctmTokenRequest.createOAuth2Request(clientDetails);
 
         String username = ctmTokenRequest.getRequestParameters().get("username");

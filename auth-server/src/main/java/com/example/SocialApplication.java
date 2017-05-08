@@ -16,10 +16,7 @@
 package com.example;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 import javax.servlet.Filter;
@@ -87,7 +84,8 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 	@RequestMapping("/token")
 	public String token() {
 		OAuth2Authentication auth = (OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication();
-		return auth.getDetails().toString();
+		TwoStepAuthenticationDetails details = (TwoStepAuthenticationDetails)auth.getDetails();
+		return details.getCtmAccessToken().getValue();
 	}
 
 	@Override

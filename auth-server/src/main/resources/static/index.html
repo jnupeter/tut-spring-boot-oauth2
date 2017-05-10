@@ -28,7 +28,8 @@
 	</div>
 	<div class="container" ng-show="home.authenticated">
 		Logged in as: <span ng-bind="home.user"></span>
-		<div>email: </div>
+		<div><a href="http://localhost:9999/ctm/spring/login?access_token={{home.access_token}}">Simples</a> </div>
+		<div><a href="http://localhost:9090/api/hello?access_token={{home.access_token}}">My Simples</a> </div>
 		<div>
 			<button ng-click="home.logout()" class="btn btn-primary">Logout</button>
 		</div>
@@ -53,6 +54,12 @@
 					}).error(function() {
 						self.user = "N/A";
 						self.authenticated = false;
+					});
+					$http.get("/token").success(function(data){
+					    if(data.access_token) {
+					        self.access_token = data.access_token;
+					        console.log("access_token is:" + data.access_token);
+						}
 					});
 					self.logout = function() {
 						$http.post('logout', {}).success(function() {

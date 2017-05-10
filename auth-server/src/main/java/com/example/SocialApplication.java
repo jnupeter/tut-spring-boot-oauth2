@@ -45,6 +45,7 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.web.configuration.*;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -82,10 +83,10 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 	}
 
 	@RequestMapping("/token")
-	public String token() {
+	public OAuth2AccessToken token() {
 		OAuth2Authentication auth = (OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication();
 		TwoStepAuthenticationDetails details = (TwoStepAuthenticationDetails)auth.getDetails();
-		return details.getCtmAccessToken().getValue();
+		return details.getCtmAccessToken();
 	}
 
 	@Override
